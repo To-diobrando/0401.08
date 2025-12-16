@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -14,7 +14,7 @@ body {
   text-align: center;
 }
 
-/* SCREENS */
+/* COMMON */
 .screen {
   height: 100vh;
   display: flex;
@@ -23,7 +23,9 @@ body {
   flex-direction: column;
 }
 
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
 
 /* BUTTON */
 #openBtn {
@@ -35,6 +37,8 @@ body {
   font-size: 1rem;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  z-index: 10;
+  position: relative;
 }
 
 /* ANIMATIONS */
@@ -73,7 +77,7 @@ body {
   color: #444;
 }
 
-/* GLOW ENDING */
+/* END GLOW */
 .glow {
   color: #ff4f87;
   text-shadow: 0 0 10px #ff8fab;
@@ -88,7 +92,11 @@ body {
   100% { opacity: 0.6; }
 }
 
-/* FLOATING HEARTS */
+/* HEARTS */
+.hearts {
+  pointer-events: none;
+}
+
 .hearts span {
   position: fixed;
   bottom: -20px;
@@ -105,7 +113,7 @@ body {
 
 <body>
 
-<!-- START -->
+<!-- START SCREEN -->
 <div id="startScreen" class="screen">
   <button id="openBtn">Click to open 🤍</button>
 </div>
@@ -115,7 +123,7 @@ body {
   <h1 id="countText"></h1>
 </div>
 
-<!-- MESSAGE -->
+<!-- MESSAGES -->
 <div id="msgScreen" class="screen hidden">
   <h1 id="msgText"></h1>
 </div>
@@ -145,7 +153,7 @@ const letterDiv = document.getElementById("letter");
 const music = document.getElementById("bgMusic");
 
 const letterText = 
-"Dear Armaan,
+  `Dear Armaan,
 Happy Birthday My Love 🤍
 
 Kaash aaj main tumhare saath hoti,
@@ -202,8 +210,8 @@ I hope tumhara day accha jaaye and you get the all the love you deserve baby �
 From yours only,
 Amruta.
 
-Always & Forever with you."
- 
+Always & Forever with you.
+
 `;
 
 openBtn.onclick = () => {
@@ -246,7 +254,7 @@ function showToMyLove() {
   setTimeout(startLetter, 2500);
 }
 
-let i = 0;
+let idx = 0;
 function startLetter() {
   msgScreen.classList.add("hidden");
   letterScreen.classList.remove("hidden");
@@ -255,9 +263,9 @@ function startLetter() {
 }
 
 function typeLetter() {
-  if (i < letterText.length) {
-    letterDiv.innerHTML += letterText.charAt(i);
-    i++;
+  if (idx < letterText.length) {
+    letterDiv.innerHTML += letterText.charAt(idx);
+    idx++;
     window.scrollTo(0, document.body.scrollHeight);
     setTimeout(typeLetter, 85);
   } else {
@@ -273,13 +281,13 @@ function showEnding() {
 }
 
 /* HEARTS */
-const hearts = ["💗","🧡","💙","❤️","🤍","🩷","🤎","💜"];
+const hearts = ["💗","💖","🤎","❤️","🤍","💙","🩷","💜","🧡"];
 setInterval(() => {
   const heart = document.createElement("span");
-  heart.textContent = hearts[Math.floor(Math.random()*hearts.length)];
-  heart.style.left = Math.random()*100 + "vw";
-  heart.style.fontSize = Math.random()*20 + 12 + "px";
-  heart.style.animationDuration = Math.random()*5 + 5 + "s";
+  heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 12 + "px";
+  heart.style.animationDuration = Math.random() * 5 + 5 + "s";
   document.getElementById("hearts").appendChild(heart);
   setTimeout(() => heart.remove(), 10000);
 }, 500);
