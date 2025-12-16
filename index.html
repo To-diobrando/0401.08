@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For my love 🤍</title>
+
+<style>
+body {
+  margin: 0;
+  background: linear-gradient(#ffe6ec, #fff);
+  font-family: 'Georgia', serif;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* SCREENS */
+.screen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hidden { display: none; }
+
+/* BUTTON */
+#openBtn {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 30px;
+  background: #ff8fab;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ANIMATIONS */
+.fade {
+  animation: fadeInOut 2.5s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.pop {
+  animation: pop 1.8s ease forwards;
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* LETTER */
+#letterScreen {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 40px 22px;
+  text-align: left;
+}
+
+#letter {
+  white-space: pre-wrap;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #444;
+}
+
+/* GLOW ENDING */
+.glow {
+  color: #ff4f87;
+  text-shadow: 0 0 10px #ff8fab;
+  font-size: 1.4rem;
+  text-align: center;
+  animation: glowPulse 2s infinite;
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* FLOATING HEARTS */
+.hearts span {
+  position: fixed;
+  bottom: -20px;
+  animation: floatUp linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- START -->
+<div id="startScreen" class="screen">
+  <button id="openBtn">Click to open 🤍</button>
+</div>
+
+<!-- COUNTDOWN -->
+<div id="countScreen" class="screen hidden">
+  <h1 id="countText"></h1>
+</div>
+
+<!-- MESSAGE -->
+<div id="msgScreen" class="screen hidden">
+  <h1 id="msgText"></h1>
+</div>
+
+<!-- LETTER -->
+<div id="letterScreen" class="hidden">
+  <div id="letter"></div>
+</div>
+
+<!-- HEARTS -->
+<div class="hearts" id="hearts"></div>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const openBtn = document.getElementById("openBtn");
+const startScreen = document.getElementById("startScreen");
+const countScreen = document.getElementById("countScreen");
+const msgScreen = document.getElementById("msgScreen");
+const letterScreen = document.getElementById("letterScreen");
+const countText = document.getElementById("countText");
+const msgText = document.getElementById("msgText");
+const letterDiv = document.getElementById("letter");
+const music = document.getElementById("bgMusic");
+
+const letterText = 
+"Dear Armaan,
+Happy Birthday My Love 🤍
+
+Kaash aaj main tumhare saath hoti,
+tumhare cake se secretly ek bite chura leti.
+aur jaan-bujh ke tumhe thoda sa irritate karti.
+But distance beech mein aa gaya,
+toh maine ye bana liya — sirf tumhare liye.
+
+Tum mere liye words se bhi kaafi zyada ho.
+Jab din heavy hote hain, tum mera peace ho.
+Jab sab loud lagta hai, tum meri comfort ho.
+
+Mujhe tumhara care karna,
+sunna, aur bina bole samajh jaana,
+bohot pasand hai.
+
+I love the way you care for me,
+and always take care of my feelings.
+
+I hope hum jaldi milenge,
+aur bohot saari dates pe jaayenge —
+haste hue, baatein karte hue,
+aur aisi memories banaayenge,
+jo hum saalon baad bhi yaad karenge.
+
+I hope humara pyaar kabhi tumhe purana na lage.
+I hope hum hamesha ek-dusre ko hi choose karein.
+
+And maybe one day,
+I really want to marry you.
+tumhare saath ek life build karna,
+aur ek chhoti si family banana —
+full of love, warmth, and us,
+thats my dream.
+
+Miles door hoke bhi,
+tum mera favourite place ho.
+
+and sacchi Armaan,
+I am so in love with you.
+I wanna be a part of all your ups and downs.
+I wanna build a loving family with you.
+I wanna keep loving you forever,
+And I wanna celebrate every birthday of yours together with you.
+Make your day special and make you realize how loved you are.
+I cant imagine a world without you now.
+I love you so much, Armaan.
+
+Again,
+Happy Birthday, my love.
+Cringe laga ho toh maaf karna but these were my genuine feelings for you.
+I hope tumhara day accha jaaye and you get the all the love you deserve baby 🤍
+
+From yours only,
+Amruta.
+
+Always & Forever with you."
+ 
+`;
+
+openBtn.onclick = () => {
+  startScreen.classList.add("hidden");
+  music.play();
+  startCountdown();
+};
+
+function startCountdown() {
+  countScreen.classList.remove("hidden");
+  let seq = ["3", "2", "1", "04/01/2026", "17 → 18"];
+  let i = 0;
+
+  const interval = setInterval(() => {
+    countText.textContent = seq[i];
+    countText.className = "fade";
+    i++;
+    if (i === seq.length) {
+      clearInterval(interval);
+      setTimeout(showBirthday, 2500);
+    }
+  }, 1200);
+}
+
+function showBirthday() {
+  countScreen.classList.add("hidden");
+  msgScreen.classList.remove("hidden");
+  msgText.textContent = "Happy Birthday Armaan 🤍";
+  msgText.className = "pop";
+
+  setTimeout(() => {
+    msgText.className = "fade";
+    setTimeout(showToMyLove, 2500);
+  }, 2000);
+}
+
+function showToMyLove() {
+  msgText.textContent = "To My Love 💗";
+  msgText.className = "pop";
+  setTimeout(startLetter, 2500);
+}
+
+let i = 0;
+function startLetter() {
+  msgScreen.classList.add("hidden");
+  letterScreen.classList.remove("hidden");
+  document.body.style.overflow = "auto";
+  typeLetter();
+}
+
+function typeLetter() {
+  if (i < letterText.length) {
+    letterDiv.innerHTML += letterText.charAt(i);
+    i++;
+    window.scrollTo(0, document.body.scrollHeight);
+    setTimeout(typeLetter, 85);
+  } else {
+    setTimeout(showEnding, 2000);
+  }
+}
+
+function showEnding() {
+  letterDiv.innerHTML += `\n\n<div class="glow">I love you Armaan, forever.</div>`;
+  setTimeout(() => {
+    document.body.style.opacity = "0";
+  }, 5000);
+}
+
+/* HEARTS */
+const hearts = ["💗","🧡","💙","❤️","🤍","🩷","🤎","💜"];
+setInterval(() => {
+  const heart = document.createElement("span");
+  heart.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = Math.random()*20 + 12 + "px";
+  heart.style.animationDuration = Math.random()*5 + 5 + "s";
+  document.getElementById("hearts").appendChild(heart);
+  setTimeout(() => heart.remove(), 10000);
+}, 500);
+</script>
+
+</body>
+</html>
